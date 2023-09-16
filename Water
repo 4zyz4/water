@@ -4,31 +4,71 @@ t.speed(0)
 t.tracer(100)
 t.colormode(1.0)
 t.hideturtle()
-map_=[[1,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],
-      [0,0,0,0,0],]
+map_=[[1,0,0,0,0]*1,
+      [0,0,0,0,0]*1,
+      [0,0,0,0,0]*1,
+      [0,0,0,0,0]*1,
+      [0,0,0,0,0]*1,]*1
 def calc(float_num):
     for i in range(len(map_)):
         for j in range(len(map_[i])):
-            try:
-                if map_[i][j]!=map_[i][j+1]:
+            try:###
+                if map_[i][j]>map_[i][j+1]:
+                    sm_=(map_[i][j]-map_[i][j+1])/2*float_num
                     map_[i][j]=map_[i][j+1]=(map_[i][j]+map_[i][j+1])/2*float_num
-                if map_[i][j]!=map_[i][j-1]:
-                    map_[i][j]=map_[i][j-1]=(map_[i][j]+map_[i][j-1])/2*float_num
-                if map_[i][j]!=map_[i+1][j]:
-                    map_[i][j]=map_[i+1][j]=(map_[i][j]+map_[i+1][j])/2*float_num
-                if map_[i][j]!=map_[i-1][j]:
-                    map_[i][j]=map_[i-1][j]=(map_[i][j]+map_[i-1][j])/2*float_num
-                map_[i][j]=float(str(map_[i][j])[:3])
+                    map_[i][j+1]+=sm_
+                elif map_[i][j]<map_[i][j+1]:
+                    sm_=(map_[i][j+1]-map_[i][j])/2*float_num
+                    map_[i][j]=map_[i][j+1]=(map_[i][j]+map_[i][j+1])/2*float_num
+                    map_[i][j]+=sm_
             except:
+                ...
+
+
+            try:###
+                if map_[i][j]>map_[i][j-1]:
+                    sm_=(map_[i][j]-map_[i][j-1])/2*float_num
+                    map_[i][j]=map_[i][j-1]=(map_[i][j]+map_[i][j-1])/2*float_num
+                    map_[i][j-1]+=sm_
+                elif map_[i][j]<map_[i][j-1]:
+                    sm_=(map_[i][j-1]-map_[i][j])/2*float_num
+                    map_[i][j]=map_[i][j-1]=(map_[i][j]+map_[i][j-1])/2*float_num
+                    map_[i][j]+=sm_
+            except:
+                ...
+
+
+            try:###
+                if map_[i][j]>map_[i+1][j]:
+                    sm_=(map_[i][j]-map_[i+1][j])/2*float_num
+                    map_[i][j]=map_[i+1][j]=(map_[i][j]+map_[i+1][j])/2*float_num
+                    map_[i+1][j]+=sm_
+                elif map_[i][j]<map_[i+1][j]:
+                    sm_=(map_[i+1][j]-map_[i][j])/2*float_num
+                    map_[i][j]=map_[i+1][j]=(map_[i][j]+map_[i+1][j])/2*float_num
+                    map_[i][j]+=sm_
+            except:
+                ...
+
+
+            try:###
+                if map_[i][j]>map_[i-1][j]:
+                    sm_=(map_[i][j]-map_[i-1][j])/2*float_num
+                    map_[i][j]=map_[i-1][j]=(map_[i][j]+map_[i-1][j])/2*float_num
+                    map_[i][j-1]+=sm_
+                elif map_[i][j]<map_[i-1][j]:
+                    sm_=(map_[i-1][j]-map_[i][j])/2*float_num
+                    map_[i][j]=map_[i-1][j]=(map_[i][j]+map_[i-1][j])/2*float_num
+                    map_[i][j]+=sm_
                 
-                continue
-    return
+            except:
+                ...
+            map_[i][j]=float(str(map_[i][j])[:3])
+
+
 
 def show_lt(num):
-    t.color(1-num/10,1-num/10,1-num/10)
+    t.color(abs(1-num/5),abs(1-num/5),abs(1-num/5))
     t.pd()
     t.begin_fill()
     for i in range(4):
@@ -58,7 +98,8 @@ def show():
 
 
 
-for start in range(1000):
-    calc(0.05)
+while 1:
+    calc(0.8)
+    #print(map_)
     show()
 t.done()
